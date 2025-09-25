@@ -23,7 +23,7 @@ Route::get('/nama/{param1}', function ($param1) {
 });
 
 Route::get('/nim/{param1?}', function ($param1 = '') {
-    return 'NIM saya: '.$param1;
+    return 'NIM sya: '.$param1;
 });
 
 Route::get('/mahasiswa/{param1}', [MahasiswaController::class, 'show']);
@@ -40,4 +40,4 @@ Route::get('/detail', function () {
 
 Route::get('/profil', function () {
     return view ('halaman-mahasiswa-profil');
-}); 
+});
