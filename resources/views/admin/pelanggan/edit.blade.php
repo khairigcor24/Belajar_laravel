@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Tambah Pelanggan')
+@section('title', 'Edit Pelanggan')
 @section('content')
     <div class="py-4">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
@@ -15,13 +15,13 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item"><a href="#">Pelanggan</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Pelanggan</li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Pelanggan</li>
             </ol>
         </nav>
         <div class="d-flex justify-content-between w-100 flex-wrap">
             <div class="mb-3 mb-lg-0">
-                <h1 class="h4">Tambah Pelanggan</h1>
-                <p class="mb-0">Form untuk menambahkan data pelanggan baru.</p>
+                <h1 class="h4">Edit Pelanggan</h1>
+                <p class="mb-0">Form untuk memperbaharui data pelanggan.</p>
             </div>
             <div>
                 <a href="#" class="btn btn-primary"><i class="far fa-question-circle me-1"></i> Kembali</a>
@@ -33,8 +33,9 @@
         <div class="col-12 mb-4">
             <div class="card border-0 shadow components-section">
                 <div class="card-body">
-                    <form action={{ route('pelanggan.store') }} method="POST">
+                    <form action={{ route('pelanggan.update', $dataPelanggan->pelanggan_id) }} method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="row mb-4">
                             <div class="col-lg-4 col-sm-6">
                                 <!-- First Name -->
@@ -84,7 +85,7 @@
 
                                 <!-- Buttons -->
                                 <div class="">
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="submit" class="btn btn-info">Simpan Perubahan</button>
                                     <a href="{{ route('pelanggan.index') }}"
                                         class="btn btn-outline-secondary ms-2">Batal</a>
                                 </div>
@@ -92,7 +93,6 @@
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>

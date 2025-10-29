@@ -1,16 +1,19 @@
 <?php
-
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MahasiswaController;
 
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
+
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome'); 
 });
 
 Route::get('/pcr', function () {
@@ -51,6 +54,15 @@ Route::get('/home', [HomeController::class,'index'])
 Route::post('question/store', [QuestionController::class, 'store'])
 		->name('question.store');
 
-Route::get('dashboard', [DashboardController::class, 'index'])
+Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
+        
 Route::resource('pelanggan', PelangganController::class);
+Route::resource('user', UserController::class);
+
+Route::get('/auth', function () {
+    return view('home');
+
+});
+Route::get('/auth', [AuthController::class, 'index']);
+Route::post('/auth/login', [AuthController::class, 'login-form']);
