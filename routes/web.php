@@ -13,7 +13,7 @@ use App\Http\Controllers\AuthController;
 
 
 Route::get('/', function () {
-    return view('welcome'); 
+    return view('welcome');
 });
 
 Route::get('/pcr', function () {
@@ -56,8 +56,9 @@ Route::post('question/store', [QuestionController::class, 'store'])
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
-        
+
 Route::resource('pelanggan', PelangganController::class);
+
 Route::resource('user', UserController::class);
 
 Route::get('/auth', function () {
