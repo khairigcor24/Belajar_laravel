@@ -1,7 +1,8 @@
 @extends('admin.layouts.app')
-@section('title,List Pelanggan')
+@section('title', 'List Pelanggan')
 @section('content')
-    {{-- content --}}
+
+    {{-- Content --}}
     <div class="py-4">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
@@ -21,11 +22,11 @@
         <div class="d-flex justify-content-between w-100 flex-wrap">
             <div class="mb-3 mb-lg-0">
                 <h1 class="h4">Data Pelanggan</h1>
-                <p class="mb-0">List data seluruh pelanggan</p> 
+                <p class="mb-0">List data seluruh pelanggan</p>
             </div>
             <div>
-                <a href="" class="btn btn-success text-white"><i class="far fa-question-circle me-1"></i>
-                    Tambah Pelanggan</a>
+                <a href="{{ route('pelanggan.create') }}" class="btn btn-success text-white"><i
+                        class="far fa-question-circle me-1"></i> Tambah Pelanggan</a>
             </div>
         </div>
     </div>
@@ -58,6 +59,10 @@
                                                     clip-rule="evenodd"></path>
                                             </svg>
                                         </button>
+                                        @if (request('search'))
+                                            <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
+                                                class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +70,7 @@
                         <table id="table-pelanggan" class="table table-centered table-nowrap mb-0 rounded">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>No</th>
+                                    <th class="border-0">#</th>
                                     <th class="border-0">FirstName</th>
                                     <th class="border-0">LastName</th>
                                     <th class="border-0">Birthday</th>
@@ -76,10 +81,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataPelanggan as $item)
+                                @foreach ($dataPelanggan as $index => $item)
                                     <tr>
-                                        <td>{{ ($dataPelanggan->currentPage() - 1) * $dataPelanggan->perPage() + $loop->iteration }}
-                                        </td>
+                                        <td>{{ $dataPelanggan->firstItem() + $index }}</td>
                                         <td>{{ $item->first_name }}</td>
                                         <td>{{ $item->last_name }}</td>
                                         <td>{{ $item->birthday }}</td>
@@ -87,7 +91,7 @@
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->phone }}</td>
                                         <td><a href="{{ route('pelanggan.edit', $item->pelanggan_id) }}"
-                                                class="btn btn-info btn-sm">
+                                                class="btn btn-info btn-sm ">
                                                 <svg class="icon icon-xs me-2" data-slot="icon" fill="none"
                                                     stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                                                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -115,10 +119,15 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
                             </tbody>
                         </table>
-                        <div class="mt-3 ">
-                            {{ $dataPelanggan->links('pagination::simple-bootstrap-5') }}
+                        <div class="mt-3">
+                            {{ $dataPelanggan->links('pagination::bootstrap-5') }}
                         </div>
                     </div>
                 </div>
